@@ -1,0 +1,48 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int wynik[100000];
+
+pair <int, int> pul[2000000];
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie();
+    cout.tie();
+    int n, x, z, q, q2, a = 0;
+    cin>>n>>x>>z;
+    for(int i = 0; i < n; i++)
+    {
+        cin>>q;
+        for(int j = 0; j < q; j++)
+        {
+            cin>>q2;
+            pul[j + a].first = q2 - 1;
+            pul[j + a].second = i;
+        }
+        a += q;
+        wynik[i] = 0;
+    }
+    sort(pul, pul + a);
+    for(int i = a - 1; i >= 0; i--)
+    {
+        if(pul[i].second < n - 1)
+        {
+            wynik[pul[i].second + 1] = min(wynik[pul[i].second + 1], wynik[pul[i].second] + 1);
+        }
+        if(pul[i].second < n - 1)
+        {
+            wynik[pul[i].second] = min(wynik[pul[i].second + 1], wynik[pul[i].second] + 1);
+        }
+            else wynik[pul[i].second]++;
+    }
+    int nr;
+    for(int i = 0; i < z; i++)
+    {
+        cin>>nr;
+        cout<<wynik[nr - 1]<<"\n";
+    }
+}
