@@ -1,0 +1,171 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+long long int n1[3], n2[3], n3[3];
+long long int w1[3], w2[3], w3[3];
+
+long long int co(long long int a,long long int b,long long int c, long long int d, long long int e, long long int f,long long int as, bool p1111, bool p2222, bool p3333)
+{
+    if(e != d && e != f && d != f && p1111 == true && p2222 == true && p3333 == true)
+    {
+        long long int asd;
+        asd = a + b + c + as;
+        return asd;
+    }
+    else if(e != d && e != f && d != f && p1111 == false && p2222 == true && p3333 == true)
+    {
+        long long int asd;
+        asd = b + c + as;
+        return asd;
+    }
+    else if(e != d && e != f && d != f && p1111 == true && p2222 == false && p3333 == true)
+    {
+        long long int asd;
+        asd = a + c + as;
+        return asd;
+    }
+    else if(e != d && e != f && d != f && p1111 == true && p2222 == true && p3333 == false)
+    {
+        long long int asd;
+        asd = a + b + as;
+        return asd;
+    }
+    else if(e != d && e != f && d != f && p1111 == false && p2222 == false && p3333 == true)
+    {
+        long long int asd;
+        asd = c + as;
+        return asd;
+    }
+    else if(e != d && e != f && d != f && p1111 == false && p2222 == true && p3333 == false)
+    {
+        long long int asd;
+        asd = b + as;
+        return asd;
+    }
+    else if(e != d && e != f && d != f && p1111 == true && p2222 == false && p3333 == false)
+    {
+        long long int asd;
+        asd = a + as;
+        return asd;
+    }
+    else if(e != d && e != f && d != f && p1111 == false && p2222 == false && p3333 == false)
+    {
+        return as;
+    }
+    else return 90000000000000000;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie();
+    cout.tie();
+    n1[0] = 90000000000000000;
+    n2[0] = 90000000000000000;
+    n3[0] = 90000000000000000;
+    n1[1] = 90000000000000000;
+    n2[1] = 90000000000000000;
+    n3[1] = 90000000000000000;
+    n1[2] = 90000000000000000;
+    n2[2] = 90000000000000000;
+    n3[2] = 90000000000000000;
+    long long int x;
+    cin>>x;
+    long long int k = 0;
+    bool p1 = false, p2 = false, p3 = false, p11 = false, p22 = false, p33 = false, p111 = false, p222 = false, p333 = false;
+    long long int Tv, TAv, TABv, T, TA ,TAB;
+    for(long long int i = 0; i < x; i++)
+    {
+        long long int r, g, r1;
+        cin>>T>>TA>>TAB;
+        if(T != 0) p111 = true;
+        if(TA != 0) p222 = true;
+        if(TAB != 0) p333 = true;
+        Tv = TA + TAB;
+        TAv = T + TAB;
+        TABv = T + TA;
+        g = min(Tv, TAv);
+        g = min(g, TABv);
+        k += g;
+        if(Tv < TAv && Tv < TABv) p1 = true;
+            else if(TAv < Tv && TAv < TABv) p2 = true;
+                else if(TABv < Tv && TABv < TAv)p3 = true;
+        if((Tv == g) && (Tv == TAv || Tv == TABv)) p11 = true;
+        if((TAv == g) && (TAv == Tv || TAv == TABv)) p22 = true;
+        if((TABv == g) && (TABv == TAv || TABv == Tv)) p33 = true;
+        if(Tv - g < n1[2])
+        {
+            n1[2] = Tv - g;
+            w1[2] = i;
+            if(n1[2] < n1[1])
+            {
+                r = n1[2];
+                n1[2] = n1[1];
+                n1[1] = r;
+                w1[2] = w1[1];
+                w1[1] = i;
+                if(n1[1] < n1[0])
+                {
+                    n1[1] = n1[0];
+                    n1[0] = r;
+                    w1[1] = w1[0];
+                    w1[0] = i;
+                }
+            }
+        }
+        if(TAv - g < n2[2])
+        {
+            n2[2] = TAv - g;
+            w2[2] = i;
+            if(n2[2] < n2[1])
+            {
+                r = n2[2];
+                n2[2] = n2[1];
+                n2[1] = r;
+                w2[2] = w2[1];
+                w2[1] = i;
+                if(n2[1] < n2[0])
+                {
+                    n2[1] = n2[0];
+                    n2[0] = r;
+                    w2[1] = w2[0];
+                    w2[0] = i;
+                }
+            }
+        }
+        if(TABv - g < n3[2])
+        {
+            n3[2] = TABv - g;
+            w3[2] = i;
+            if(n3[2] < n3[1])
+            {
+                r = n3[2];
+                n3[2] = n3[1];
+                n3[1] = r;
+                w3[2] = w3[1];
+                w3[1] = i;
+                if(n3[1] < n3[0])
+                {
+                    n3[1] = n3[0];
+                    n3[0] = r;
+                    w3[1] = w3[0];
+                    w3[0] = i;
+                }
+            }
+        }
+    }
+    long long int wynik = 90000000000000000;
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            for(int m = 0; m < 3; m++)
+            {
+                wynik = min(wynik, co(n1[i], n2[j], n3[m], w1[i], w2[j], w3[m], k, p111, p222, p333));
+            }
+        }
+    }
+    cout<<wynik;
+}
